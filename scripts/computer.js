@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(dayManager.getDay() > 15)
         {
             localStorage.clear();
-            if(dayManager.getBalance() < 15000)
+            if(dayManager.getBalance() < 30000)
             {
                 window.location.href = 'lose.html';
             }
@@ -348,7 +348,7 @@ function startGameTimer()
     
     dayManager.timerInterval = setInterval(() => {
         updateGameTime();
-    }, 4000);
+    }, 2000);
 }
 
 function updateGameTime()

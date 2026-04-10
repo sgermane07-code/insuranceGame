@@ -66,7 +66,7 @@ class GameDayManager
 
         this.notepadText = 
         [
-            {day:1,option:1, text:"Проснулся с отличным настроением! Поставил себе челлендж заработать на новый телефон за 2 недели, так как нынешний уже глючит.Вчера нашел приложение, где можно заработать. У меня есть час до школы изучить его!"},
+            {day:1,option:1, text:"Проснулся с отличным настроением! Поставил себе челлендж заработать на новый телефон за 2 недели пока не закончились скидки, он стоит всего 30000 рублей, так как нынешний уже глючит.Вчера нашел приложение, где можно заработать. У меня есть час до школы изучить его!"},
             {day:3,option:1, text:"Прекрасный субботний денек! И домашки мало задали! Сегодня договорились погулять с другом, но до него опять долго идти. Может быть взять электросамокат? А пока я могу посидеть в компе!"},
             {day:5,option:1, text:"Круто погуляли с другом. Сегодня опять в школу, всего час на комп!"},
             {day:5,option:2, text:"Круто погуляли с другом. Но по дороге к нему я поцарапал самокат. Пришлось платить... Сегодня опять в школу, всего час на комп!"},
@@ -98,11 +98,11 @@ class GameDayManager
 
         this.insurancees = 
         [
-            {name:"transport",value: 200, activedays: 0, percent: 0.9},
-            {name:"administrative",value: 200, activedays: 0, percent: 0.9},
-            {name:"health",value:200, activedays: 0, percent: 0.9},
-            {name:"gadgets",value:200, activedays: 0, percent: 0.9},
-            {name:"websafety",value:200, activedays:0, percent: 0.9}
+            {name:"transport",value: 500, activedays: 0, percent: 0.9},
+            {name:"administrative",value: 500, activedays: 0, percent: 0.9},
+            {name:"health",value:500, activedays: 0, percent: 0.9},
+            {name:"gadgets",value:500, activedays: 0, percent: 0.9},
+            {name:"websafety",value:500, activedays:0, percent: 0.9}
         ];
 
         this.dayTimer = 
@@ -121,25 +121,25 @@ class GameDayManager
 
         this.improvement1Levels = 
         [
-            {level:0, value:250, percent: 0},
-            {level:1, value:500, percent:0.2},
-            {level:2, value:750, percent: 0.3},
+            {level:0, value:700, percent: 0},
+            {level:1, value:1400, percent:0.2},
+            {level:2, value:2000, percent: 0.3},
             {level:3, value:-1, percent:0.4}
         ];
 
         this.improvement2Levels = 
         [
-            {level:0, value:500, percent: 0},
-            {level:1, value:1000, percent:0.1},
-            {level:2, value:1500, percent: 0.2},
+            {level:0, value:1000, percent: 0},
+            {level:1, value:1800, percent:0.1},
+            {level:2, value:2500, percent: 0.2},
             {level:3, value:-1, percent:0.3}
         ];
 
         this.improvement3Levels = 
         [
-            {level:0, value:500, percent: 0},
-            {level:1, value:1000, percent:0.05},
-            {level:2, value:1500, percent: 0.1},
+            {level:0, value:1000, percent: 0},
+            {level:1, value:2000, percent:0.05},
+            {level:2, value:2700, percent: 0.1},
             {level:3, value:-1, percent:0.15}
         ];
 
