@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>L.O.S.A Insurance</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .guide-bg {
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+        background: linear-gradient(
+          135deg,
+          #0a192f 0%,
+          #0c2d48 40%,
+          #1a4a6f 100%
+        );
+        font-family:
+          "Segoe UI",
+          "Poppins",
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        padding: 2rem 1.5rem;
+      }
+
+      .finance-grid {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 160px;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.08) 0px,
+          rgba(255, 255, 255, 0.08) 2px,
+          transparent 2px,
+          transparent 40px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .trend-line {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .trend-line svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 20;
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .page-header h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff, #c0e0ff);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        letter-spacing: -0.5px;
+      }
+
+      .page-header p {
+        color: #bcd0e6;
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(4px);
+        border-radius: 48px;
+        padding: 2rem 2rem;
+        margin-bottom: 8rem;
+
+        box-shadow:
+          0 20px 35px rgba(0, 0, 0, 0.2),
+          0 0 0 1px rgba(100, 180, 250, 0.3);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s;
+        border: 1px solid rgba(100, 180, 250, 0.4);
+      }
+
+      .card h2 {
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #1a4a6f;
+        border-left: 6px solid #3a86b0;
+        padding-left: 1rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .card h3 {
+        font-size: 1.4rem;
+        color: #235f8a;
+        margin: 1.2rem 0 0.8rem 0;
+        font-weight: 600;
+      }
+
+      .card h4 {
+        font-size: 1.1rem;
+        color: #2c6e8f;
+        margin: 1rem 0 0.4rem;
+        font-weight: 600;
+      }
+
+      .card p {
+        color: #2c3e50;
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+      }
+      .rule-list,
+      .nuance-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 1rem 0;
+      }
+
+      .rule-list li,
+      .nuance-list li {
+        padding-left: 1.8rem;
+        position: relative;
+        margin-bottom: 0.7rem;
+        color: #1f3b4c;
+        line-height: 1.45;
+      }
+
+      .rule-list li::before {
+        content: "✓";
+        color: #2c9e6e;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        font-size: 1.1rem;
+      }
+
+      .nuance-list li::before {
+        content: "●";
+        color: #e6a017;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .example-box {
+        background: #eef3fc;
+        border-left: 5px solid #3a86b0;
+        padding: 1rem 1.5rem;
+        border-radius: 24px;
+        margin: 1.2rem 0;
+        color: #1f4e6e;
+        font-style: normal;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      }
+
+      .example-box strong {
+        color: #1a4a6f;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #d9eaf5;
+        color: #1a4a6f;
+        border-radius: 40px;
+        padding: 0.2rem 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-right: 0.6rem;
+      }
+
+      .grid-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .insight-card {
+        background: #f4f9fe;
+        border-radius: 28px;
+        padding: 1.2rem;
+        border: 1px solid #cde0ed;
+      }
+
+      hr {
+        margin: 1.2rem 0;
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, #cbdde6, transparent);
+      }
+
+      .menu-button-container {
+        text-align: center;
+        margin: 1.5rem 0 1rem;
+      }
+
+      .btn-menu {
+        background: #1a4a6f;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 700;
+        padding: 14px 44px;
+        border: none;
+        border-radius: 60px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s ease;
+        box-shadow: 0 6px 0 #0c2d48;
+        width: auto;
+        min-width: 280px;
+      }
+
+      .btn-menu:hover {
+        background: #235f8a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 0 #0c2d48;
+      }
+
+      .btn-menu:active {
+        transform: translateY(3px);
+        box-shadow: 0 3px 0 #0c2d48;
+      }
+
+      @media (max-width: 750px) {
+        .guide-bg {
+          padding: 1rem;
+        }
+        .card {
+          padding: 1.5rem;
+        }
+        .page-header h1 {
+          font-size: 2.2rem;
+        }
+        .grid-2col {
+          grid-template-columns: 1fr;
+        }
+        .btn-menu {
+          padding: 12px 32px;
+          font-size: 1rem;
+          min-width: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="guide-bg">
+      <div class="finance-grid"></div>
+      <div class="trend-line">
+        <svg viewBox="0 0 1200 100" preserveAspectRatio="none">
+          <path
+            d="M0,80 L150,60 L280,75 L400,40 L550,55 L680,30 L800,45 L950,25 L1100,50 L1200,20"
+            stroke="rgba(255, 255, 255, 0.6)"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-dasharray="5 5"
+          />
+          <path
+            d="M0,90 L1200,90"
+            stroke="rgba(255, 255, 255, 0.25)"
+            stroke-width="1"
+            stroke-dasharray="4 8"
+          />
+        </svg>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="page-header">
+          <h1>СТРАХОВАНИЕ</h1>
+          <p>
+            Как защитить себя, здоровье, квартиру и гаджеты. Главные правила +
+            нюансы
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Что такое страхование?</h2>
+          <p>
+            <strong style="color: #1a4a6f">Страхование</strong> — это когда ты
+            заранее платишь небольшие деньги (страховые взносы), чтобы в случае
+            большой неприятности получить от страховой компании много денег на
+            её решение.
+          </p>
+          <div class="example-box">
+            <strong>Простой пример:</strong> Представь, что вы в классе
+            скидываетесь по 100 ₽ в общий фонд. Если у кого-то разобьётся
+            телефон, из фонда берут деньги на ремонт. Ты потерял 100 ₽, но зато
+            спасён от траты 10 000 ₽.<br />
+            <strong>Страхование работает так же</strong>, только компания — это
+            большой «общий фонд» миллионов людей.
+          </div>
+          <p>
+            <strong style="color: #1a4a6f">Риск</strong> — это вероятность, что
+            неприятность случится.<br />
+            Страхование превращает <strong>большой и редкий убыток</strong> в
+            <strong>маленькие и регулярные платежи</strong>, которые не страшно
+            платить.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>1. Страхование жизни и здоровья</h2>
+          <h3>Страхование здоровья</h3>
+          <p>Покрывает расходы на врачей, лекарства, операции, больницу.</p>
+          <div class="example-box">
+            <strong>Пример:</strong> сломал ногу в скейтпарке — страховка
+            оплачивает гипс, рентген и приём травматолога.
+          </div>
+
+          <h3>Страхование жизни</h3>
+          <p>
+            Деньги получает не ты, а тот, кого ты укажешь (родители, брат,
+            сестра), если ты умрёшь или получишь тяжёлую инвалидность.
+          </p>
+          <div class="example-box">
+            <strong>Пример:</strong> дедушка застраховал жизнь на 5 млн. Если с
+            ним что-то случится — семья не останется без денег на жильё и учёбу.
+          </div>
+          <ul class="rule-list">
+            <li>
+              <strong>Правило №1.</strong> Страховой случай должен быть чётко
+              прописан. В договоре всегда есть список того, что оплатят, а что —
+              нет.
+            </li>
+            <li>
+              <strong>Правило №2.</strong> Есть «период ожидания»: после покупки
+              страховки нельзя сразу получить выплату. Обычно 1–3 месяца.
+            </li>
+            <li>
+              <strong>Правило №3.</strong> Страховка — не безлимитная карта. У
+              каждой страховки есть <strong>лимит</strong> — максимальная сумма
+              за год (дешёвая до 300 тыс., дорогая до 10 млн). Если лечение
+              стоит больше — разницу платишь ты.
+            </li>
+            <li>
+              <strong>Правило №4.</strong> Всё надо подтверждать документами.
+              Компания проверит, не обман ли это.
+            </li>
+          </ul>
+          <ul class="nuance-list">
+            <li>
+              <strong>Нюанс 1.</strong> Чем опаснее твоя жизнь — тем дороже
+              страховка. Цена зависит от возраста, хобби (скейтбординг дороже
+              шахмат), здоровья.
+            </li>
+            <li>
+              <strong>Нюанс 2.</strong> В страховке жизни есть
+              <strong>рисковая</strong> (дешёвая: заплатил год — ничего не
+              случилось — деньги сгорели) и
+              <strong>накопительная</strong> (дорогая: платишь много лет, потом
+              получаешь деньги, даже если всё хорошо). Для подростка рисковая —
+              правильнее.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>2. Страхование квартиры</h2>
+          <p>
+            Твоя квартира — это куча ценных вещей (телефон, ноутбук, велосипед,
+            техника) и сама квартира (стены, пол, трубы, окна). Всё это может
+            сгореть, залить, ограбить или разнести ураганом.
+          </p>
+          <p>
+            <strong style="color: #1a4a6f">Страховка квартиры</strong> — когда
+            компания даёт деньги на ремонт и новые вещи, если случилась беда.
+          </p>
+
+          <ul class="rule-list">
+            <li>
+              <strong>Правило №1.</strong> Нельзя застраховать квартиру «дороже,
+              чем она стоит».
+            </li>
+            <li>
+              <strong>Правило №2.</strong> Есть <strong>франшиза</strong> — твоя
+              доля ущерба. Пример: Франшиза 5000 ₽. Залив на 30 000 ₽ → компания
+              заплатит 25 000 ₽.
+            </li>
+            <li>
+              <strong>Правило №3.</strong> При краже нужно доказательство
+              взлома. Если дверь была открыта — могут не заплатить.
+            </li>
+            <li>
+              <strong>Правило №4.</strong> Срочно сообщить о страховом случае,
+              иначе отказ.
+            </li>
+          </ul>
+
+          <ul class="nuance-list">
+            <li>
+              <strong>Нюанс 1.</strong> «Залив от соседа» — это страховка
+              соседа, не твоя. Твоя страховка может заплатить потом и сама
+              взыскать с соседа.
+            </li>
+            <li>
+              <strong>Нюанс 2.</strong> Дорогие вещи (украшения, антиквариат)
+              страхуют отдельно.
+            </li>
+            <li>
+              <strong>Нюанс 3.</strong>
+              <strong>«Гражданская ответственность»</strong> — суперполезно для
+              подростков. Если ты случайно зальёшь соседей или разобьёшь люстру
+              — страховая заплатит за тебя.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>3. Страхование машины</h2>
+          <p>
+            Машина — дорогая игрушка. Можно разбить её самому, повредить чужую,
+            потерять при угоне.
+          </p>
+          <div class="grid-2col">
+            <div class="insight-card">
+              <strong>ОСАГО</strong> — Обязательное страхование автогражданской
+              ответственности.<br />
+              Если ты виноват в аварии, страховка платит тому, кого ты ударил
+              (ремонт его машины, лечение). Твою машину ОСАГО не ремонтирует.
+              <strong>Без ОСАГО нельзя выезжать на дорогу — штраф.</strong>
+            </div>
+            <div class="insight-card">
+              <strong>КАСКО</strong> — добровольная страховка на свою машину.
+              Покрывает угон, ущерб от ДТП, стихию. Дорого (5–10% от стоимости
+              авто в год). Часто есть франшиза, чтобы удешевить полис.
+            </div>
+          </div>
+          <ul class="rule-list">
+            <li><strong>Правило №1.</strong> ОСАГО обязательно для всех.</li>
+            <li>
+              <strong>Правило №2.</strong> Цена ОСАГО зависит от водителя (стаж,
+              возраст, аварийность), а не от машины.
+            </li>
+            <li>
+              <strong>Правило №3.</strong> У КАСКО часто есть франшиза
+              (например, 10 000 ₽: ущерб меньше — платишь сам, больше —
+              страховая доплачивает).
+            </li>
+          </ul>
+          <ul class="nuance-list">
+            <li>
+              <strong>Нюанс 1.</strong> Есть КАСКО «на выбранные риски» (только
+              угон, только ущерб).
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>4. Страхование путешествий</h2>
+          <p>
+            В другой стране или даже в другом городе ты будешь один, без
+            знакомых врачей. Страховка путешественника помогает деньгами и
+            организацией: болезнь, авария, потеря багажа, отмена поездки.
+          </p>
+          <ul class="rule-list">
+            <li>
+              <strong>Правило №1.</strong> Без страховки в другую страну —
+              НЕЛЬЗЯ. Лечение за границей безумно дорогое.
+            </li>
+            <li>
+              <strong>Правило №2.</strong> Страховка покупается ДО поездки.
+            </li>
+            <li>
+              <strong>Правило №3.</strong> При болезни нужно звонить в страховую
+              СРАЗУ.
+            </li>
+            <li>
+              <strong>Правило №4.</strong> При потере багажа нужны документы из
+              аэропорта.
+            </li>
+            <li>
+              <strong>Правило №5.</strong> Отмена поездки — только по
+              уважительной причине (болезнь, смерть родственника).
+            </li>
+          </ul>
+          <ul class="nuance-list">
+            <li>
+              <strong>Нюанс 1.</strong> Франшиза в туристических страховках
+              встречается редко.
+            </li>
+            <li>
+              <strong>Нюанс 2.</strong> Экстремальный спорт (лыжи, дайвинг,
+              параплан) — доп. опция. Без неё травму не покроют.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>5. Страхование телефона, ноутбука и гаджетов</h2>
+          <p>
+            Телефон за 30–80 тыс., ноутбук до 120 тыс. Если их украдут или
+            разобьют — это огромная потеря.
+            <strong>Страховка гаджетов</strong> — платишь небольшие деньги
+            (500–3000 ₽ в год или месяц), а страховая чинит или заменяет
+            сломанную вещь.
+          </p>
+          <ul class="rule-list">
+            <li>
+              <strong>Правило №1.</strong> Франшиза почти всегда (10–30% от
+              ремонта или фикс 1000–3000 ₽).
+            </li>
+            <li>
+              <strong>Правило №2.</strong> Можно выбрать количество ремонтов в
+              год (2,3,5 раз) — чем больше, тем дороже.
+            </li>
+            <li>
+              <strong>Правило №3.</strong> При краже нужно заявление в полицию.
+              Без него не заплатят.
+            </li>
+            <li>
+              <strong>Правило №4.</strong> Страховку часто покупают родители
+              (если тебе меньше 18 лет).
+            </li>
+          </ul>
+          <ul class="nuance-list">
+            <li>
+              <strong>Нюанс 1.</strong> Сейчас страховка для самокатов не
+              обязательна, но скоро может стать обязательной.
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>6. Страхование электросамоката</h2>
+          <p>
+            Электросамокат — полноценный участник движения. На нём можно
+            разбиться самому, сбить пешехода, повредить машину или потерять
+            самокат.
+          </p>
+          <ul class="rule-list">
+            <li>
+              <strong>Правило №1.</strong> Страхование
+              <strong>гражданской ответственности</strong> — платит
+              пострадавшему, если ты сбил пешехода или поцарапал чужую машину.
+            </li>
+            <li>
+              <strong>Правило №2.</strong> Страхование от несчастного случая —
+              платит тебе на лечение, если ты упал и сломал руку.
+            </li>
+            <li>
+              <strong>Правило №3.</strong> Страхование самого самоката —
+              покрывает ремонт или кражу (нужно заявление в полицию).
+            </li>
+            <li>
+              <strong>Правило №4.</strong> В аренде (Whoosh, Яндекс) базовая
+              страховка уже включена, но она ограниченная.
+            </li>
+          </ul>
+          <ul class="nuance-list">
+            <li>
+              <strong>Нюанс 1.</strong> Сейчас страховка для самокатов не
+              обязательна, но скоро может стать обязательной.
+            </li>
+            <li>
+              <strong>Нюанс 2.</strong> При ДТП с машиной: если виноват водитель
+              — его ОСАГО платит за тебя. Если виноват ты — ты платишь за ремонт
+              его машины из своего кармана (если нет страховки ответственности).
+            </li>
+            <li>
+              <strong>Нюанс 3.</strong> Экстремальное катание (скейт-парк,
+              трамплины) — нужен спортивный полис.
+            </li>
+            <li>
+              <strong>Нюанс 4.</strong> При краже обязательно заявление в
+              полицию.
+            </li>
+          </ul>
+        </div>
+        <div class="card" style="background: rgba(255, 255, 255, 0.97)">
+          <h2>Главные выводы</h2>
+          <div class="grid-2col" style="margin-bottom: 1rem">
+            <div>
+              <span class="badge">Правило 1</span> Страховой случай чётко
+              прописан
+            </div>
+            <div>
+              <span class="badge">Правило 2</span> Есть лимит выплаты и франшиза
+            </div>
+            <div>
+              <span class="badge">Правило 3</span> Документы — всё, без них
+              отказано
+            </div>
+            <div>
+              <span class="badge">Правило 4</span> Сообщай о случае сразу
+            </div>
+          </div>
+          <hr />
+          <p>
+            <strong>Страхование — это не трата, а защита.</strong> Оно
+            превращает катастрофу в неприятность, а большую финансовую дыру — в
+            маленький взнос. Выбирай страховку под свой образ жизни, внимательно
+            читай договор и помни про франшизу и исключения.
+          </p>
+          <div class="menu-button-container">
+            <button class="btn-menu" id="backToMenuBtn">
+              ВЕРНУТЬСЯ В МЕНЮ
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        document.getElementById("backToMenuBtn").addEventListener("click",()=>
+        {
+          window.location.href = 'start.html';
+        });
+      </script>
+  </body>
+</html>

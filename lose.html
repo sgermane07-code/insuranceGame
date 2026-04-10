@@ -229,8 +229,15 @@
           К сожалению, ваши финансовые решения оказались неудачными! Стоит
           изучить тему "СТРАХОВАНИЕ" и попробовать снова!
         </div>
-        <button class="btn-menu" id="backToMenuBtn">ВЕРНУТЬСЯ В МЕНЮ</button>
+        <button class="btn-menu" id="backToMenuBtn">Гайд по страхованию</button>
       </div>
     </div>
+    <script>
+        document.getElementById("backToMenuBtn").addEventListener("click",()=>
+        {
+          localStorage.clear();
+          window.location.href = 'study.html';
+        });
+      </script>
   </body>
 </html>

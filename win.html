@@ -227,11 +227,20 @@
         <div class="achievement">Финансовый чемпион!</div>
         <div class="description">
           Вы успешно прошли игру, приняв верные финансовые решения! Ваш челлендж
-          выполнен!
+          выполнен! Все благодаря тому, что вы следили за своим Страхованием.
+          Однако предлагаем вам ознакомиться с нашим гайдом по страхованию,
+          чтобы и в жизни неожиданные ситуации не помешали вам.
         </div>
 
-        <button class="btn-menu" id="backToMenuBtn">ВЕРНУТЬСЯ В МЕНЮ</button>
+        <button class="btn-menu" id="backToMenuBtn">Гайд по страхованию</button>
       </div>
     </div>
+     <script>
+        document.getElementById("backToMenuBtn").addEventListener("click",()=>
+        {
+          localStorage.clear();
+          window.location.href = 'study.html';
+        });
+      </script>
   </body>
 </html>
