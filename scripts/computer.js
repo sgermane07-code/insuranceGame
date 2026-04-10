@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("isNextDay","false");
         const [insurance,value] = dayManager.eventInformation(event);
         dayManager.changeDay();
-        if(dayManager.getDay() == 16)
+        if(dayManager.getDay() > 15)
         {
             localStorage.clear();
-            if(getBalance() < 15000)
+            if(dayManager.getBalance() < 15000)
             {
                 window.location.href = 'lose.html';
             }
@@ -348,7 +348,7 @@ function startGameTimer()
     
     dayManager.timerInterval = setInterval(() => {
         updateGameTime();
-    }, 400);
+    }, 4000);
 }
 
 function updateGameTime()
