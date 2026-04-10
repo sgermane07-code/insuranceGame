@@ -348,7 +348,7 @@ function startGameTimer()
     
     dayManager.timerInterval = setInterval(() => {
         updateGameTime();
-    }, 2000);
+    }, 1500);
 }
 
 function updateGameTime()
