@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>L.O.S.A - Система</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles/computerstyle.css" />
+  </head>
+
+  <body>
+    <div id="computerView" class="computer-screen">
+      <div class="desktop">
+        <div class="center-losa">L.O.S.A</div>
+        <div class="desktop-shortcuts">
+          <div class="shortcut" id="notepadShortcut">
+            <img src="sprites/1x/Computer/note.png" alt="notepad" />
+            <span>Блокнот</span>
+          </div>
+          <div class="shortcut" id="internetShortcut">
+            <img src="sprites/1x/Computer/internet.png" alt="internet" />
+            <span>Интернет</span>
+          </div>
+          <div class="shortcut" id="nutShortcut">
+            <img src="sprites/1x/Computer/nut.png" alt="acorn" />
+            <span>Орешки</span>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <div class="bottom-left">
+          <div class="money-display">
+            <i class="fas fa-coins"></i><span id="balanceValue">0</span>
+          </div>
+          <button class="power-btn" id="shutdownBtn">
+            <i class="fas fa-power-off"></i>
+          </button>
+          <div class="taskbar-left" id="taskbarLeft"></div>
+        </div>
+        <div class="bottom-right">
+          <div class="icon-group-bottom">
+            <i class="fas fa-tv"></i>
+            <i class="fas fa-volume-up"></i>
+          </div>
+          <div class="time-area" id="liveClock">--:--</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="notepadApp" class="app-window">
+      <div id="notepad-header" class="modal-header">
+        <h3 id="notepadText"></h3>
+        <button class="close-modal" data-app="notepad">&times;</button>
+      </div>
+      <div class="modal-body">
+        <textarea disabled id="notepadContent" class="notepad-text"></textarea>
+        <div style="font-size: 12px; margin-top: 8px"></div>
+      </div>
+    </div>
+
+    <div id="internetApp" class="app-window" style="width: 900px">
+      <div class="modal-header">
+        <h3><i class="fas fa-globe"></i> L.O.S.A Browser</h3>
+        <button class="close-modal" data-app="internet">&times;</button>
+      </div>
+      <div class="browser-tabs">
+        <button class="tab-btn active" data-tab="news">
+          <img
+            src="sprites/1x/Computer/newspapper.png"
+            style="width: 16px; height: 16px"
+          />
+          Новости
+        </button>
+        <button class="tab-btn" data-tab="self">
+          <img src="sprites/1x/Computer/nut.png" style="width: 16px; height: 18px" />
+          Улучшения
+        </button>
+        <button class="tab-btn" data-tab="insure">
+          <img
+            src="sprites/1x/Computer/lock.png"
+            style="width: 14px; height: 16px"
+          />Безопасность
+        </button>
+      </div>
+      <div class="address-bar">
+        <div class="address-left">
+          <i class="fas fa-lock"></i> https://losa.insure
+        </div>
+      </div>
+
+      <div id="newsTab" class="tab-content active">
+        <div id="newslabelBox"><h6 id="newslabelText">Новости</h6></div>
+        <hr />
+        <div id="newsContainer">
+          <div class="news" id="news1"></div>
+          <div class="news" id="news2"></div>
+          <div class="news" id="news3"></div>
+        </div>
+      </div>
+
+      <div id="selfTab" class="tab-content">
+        <div class="self-cards" id="selfCardsContainer">
+          <div class="upgrade-card">
+            <img
+              src="sprites/1x/Computer/run.png"
+              alt="Курсы по вашему роду деятельности"
+              class="self-card-img"
+            />
+            <h3 class="self-card-title">Курсы по вашему роду деятельности</h3>
+            <hr />
+            <p class="self-card-desc">
+              Данные курсы помогут развиться в вашей сфере и позволят выполнять
+              любые заказы и сделают выполнение заказов быстрее(Ускоряет
+              выполнение заказов на 10%).
+            </p>
+            <hr />
+            <button class="buy-upgrade-btn active" id="purchase_upgrade_btn1">
+              Купить
+            </button>
+            <p class="self-card-price" id="self-card1-price"></p>
+          </div>
+
+          <div class="upgrade-card">
+            <img
+              src="sprites/1x/Computer/dollar.png"
+              alt="Понижение комиссии"
+              class="self-card-img"
+            />
+            <h3 class="self-card-title">Понижение комиссии</h3>
+            <hr />
+            <p class="self-card-desc">
+              При поддержке сайта данной покупкой, комиссия с выполнения заказов
+              уменьшается на 3% (Увеличивает количество денег с заказов на 3%).
+            </p>
+            <hr />
+            <button class="buy-upgrade-btn active" id="purchase_upgrade_btn2">
+              Купить
+            </button>
+            <p class="self-card-price" id="self-card2-price"></p>
+          </div>
+
+          <div class="upgrade-card">
+            <img
+              src="sprites/1x/Computer/rate.png"
+              alt="Повышение в рейтинге"
+              class="self-card-img"
+            />
+            <h3 class="self-card-title">Повышение в рейтинге</h3>
+            <hr />
+            <p class="self-card-desc">
+              Повышение в рейтинге приложения, что даёт больше сложных и дорогих
+              предложений(Шанс на выпадение более дорогих заказов увеличивается
+              на 5%).
+            </p>
+            <hr />
+            <button class="buy-upgrade-btn active" id="purchase_upgrade_btn3">
+              Купить
+            </button>
+            <p class="self-card-price" id="self-card3-price"></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="insureTab" class="tab-content">
+        <div class="insure-section">
+          <ul class="insure-list">
+            <li class="insure-item">
+              <label class="insure-checkbox">
+                <input type="checkbox" data-insure="gadgets" />
+                <span class="checkbox-custom"></span>
+                Страховка гаджетов (3 дня)
+              </label>
+              <span class="insure-price" id="insure1"></span>
+            </li>
+            <li class="insure-item">
+              <label class="insure-checkbox">
+                <input type="checkbox" data-insure="administrative" />
+                <span class="checkbox-custom"></span>
+                Страховка при административной ответсвенности (3 дня)
+              </label>
+              <span class="insure-price" id="insure2"></span>
+            </li>
+            <li class="insure-item">
+              <label class="insure-checkbox">
+                <input type="checkbox" data-insure="transport" />
+                <span class="checkbox-custom"></span>
+                Страховка транспорта (3 дня)
+              </label>
+              <span class="insure-price" id="insure3"></span>
+            </li>
+            <li class="insure-item">
+              <label class="insure-checkbox">
+                <input type="checkbox" data-insure="health" />
+                <span class="checkbox-custom"></span>
+                Здоровье (3 дня)
+              </label>
+              <span class="insure-price" id="insure4"></span>
+            </li>
+            <li class="insure-item">
+              <label class="insure-checkbox">
+                <input type="checkbox" data-insure="websafety" />
+                <span class="checkbox-custom"></span>
+                Киберстраховка (3 дня)
+              </label>
+              <span class="insure-price" id="insure5"></span>
+            </li>
+          </ul>
+
+          <button class="insure-buy-btn" id="insure-buy">Купить</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="nutApp" class="app-window">
+      <div class="modal-header">
+        <h3><i class="fas fa-acorn"></i> Орешки</h3>
+        <button class="close-modal" data-app="nut">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="task-list" id="taskListContainer"></div>
+      </div>
+    </div>
+
+    <div id="executionModal" class="execution-modal">
+      <div class="execution-window">
+        <div class="execution-icon" id="execIcon">
+          <img src="sprites/1x/Computer/nut.png" />
+        </div>
+        <div class="execution-progress">
+          <div id="execFill" class="execution-fill"></div>
+        </div>
+        <button id="execution-btn">Выполнить</button>
+      </div>
+    </div>
+    <script src="scripts/GameDayManager.js"></script>
+    <script src="scripts/computer.js"></script>
+  </body>
+</html>

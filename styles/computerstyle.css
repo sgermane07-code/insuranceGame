@@ -1,0 +1,643 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background: #0a2f6c;
+    font-family: 'Segoe UI', 'Tahoma', Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.computer-screen {
+    width: 1300px;
+    max-width: 95vw;
+    height: 85vh;
+    background: #0a3a6a;
+    box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+    border: 2px solid #2c5a8c;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 0;
+}
+
+.desktop {
+    flex: 1;
+    position: relative;
+    overflow: auto;
+    padding: 20px;
+}
+
+.center-losa {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: 800;
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 12px;
+    text-decoration-thickness: 1px;
+    letter-spacing: 12px;
+    pointer-events: none;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.desktop-shortcuts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 10;
+}
+
+.shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100px;
+
+    border-radius: 0;
+}
+.shortcut:hover {
+    background: rgba(40, 80, 120, 0.9);
+    transform: translateY(-2px);
+}
+.shortcut img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 6px;
+    object-fit: contain;
+}
+.shortcut span {
+    font-size: 0.75rem;
+    color: #f0f9ff;
+    text-align: center;
+}
+
+/* Нижняя панель */
+.bottom-bar {
+    background: rgba(0, 20, 40, 0.95);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid #2c5a8c;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+}
+.bottom-left {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.taskbar-left {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.taskbar-app {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.1s;
+}
+.taskbar-app:hover {
+    background: rgba(255,255,255,0.3);
+}
+.taskbar-app img {
+    width: 20px;
+    height: 20px;
+}
+.taskbar-app span {
+    font-size: 0.75rem;
+    color: white;
+}
+.money-display {
+    background: #0a2a4a;
+    padding: 4px 12px;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 0.9rem;
+    border: 1px solid #4a7a9c;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffecb3;
+    border-radius: 0;
+}
+.money-display i { color: gold; }
+.power-btn {
+    background: none;
+    border: none;
+    color: #ffaa88;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+.power-btn:hover { color: #ff5e5e; background: #2a1e1e55; }
+.bottom-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: #cbe5e5;
+}
+.icon-group-bottom {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.icon-group-bottom i {
+    font-size: 1.1rem;
+}
+.time-area {
+    font-family: monospace;
+    background: #00000066;
+    padding: 4px 12px;
+    font-size: 0.9rem;
+    border-radius: 0;
+}
+
+.app-window {
+    position: absolute;
+    background: #1e3a5a;
+    width: 560px;
+    max-width: 85vw;
+    border: 1px solid #4a7a9c;
+    overflow: hidden;
+    border-radius: 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: none;
+}
+.app-window.active {
+    display: block;
+}
+#nutApp .app-window {
+    background: #6b3e1c;
+    border-color: #aa7a4a;
+}
+#nutApp .modal-header {
+    background: #4a2a10;
+    border-bottom-color: #aa7a4a;
+}
+#nutApp .modal-body {
+    background: #8b5a2c;
+    color: #f0e0c0;
+}
+.modal-header {
+    background: #0f2c44;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2c5a8c;
+    font-weight: bold;
+    color: #cbe5e5;
+    cursor: grab;
+}
+.modal-header:active { cursor: grabbing; }
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #bbada0;
+}
+.close-modal:hover { color: #ff8c6b; }
+.modal-body { padding: 22px; max-height: 60vh; overflow-y: auto; }
+
+.notepad-text {
+    width: 100%;
+    height: 260px;
+    background: #0f2c3a;
+    border: 1px solid #2c6a8c;
+    color: #eef5f5;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+    border-radius: 0;
+}
+
+/* Браузер */
+#internetApp .app-window {
+    background: white;
+}
+#internetApp .modal-header {
+    background: #e0e0e0;
+    color: #1e3a5a;
+    border-bottom: 1px solid #aaa;
+}
+.browser-tabs {
+    background: #f0f0f0;
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px 0 12px;
+    border-bottom: 1px solid #ccc;
+}
+.tab-btn {
+    background: #ddd;
+    border: none;
+    padding: 8px 20px;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.tab-btn img {
+    width: 18px;
+    height: 18px;
+}
+.tab-btn.active {
+    background: white;
+    color: #0a2f6c;
+    border-top: 2px solid #ffaa44;
+}
+.address-bar {
+    background: #f5f5f5;
+    padding: 6px 12px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #1e3a5a;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.address-left i { margin-right: 6px; }
+.refresh-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #1e3a5a;
+}
+.tab-content { display: none; padding: 16px; background: white; color: #222; }
+.tab-content.active { display: block; }
+
+/* Карточки улучшений */
+#selfCardsContainer
+{
+    display: flex;
+    align-self: start;
+    width: 100%;
+}
+
+.self-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.self-card-title
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+
+.upgrade-card {
+    background: #ffffff;
+    border: 4px solid #ffaa44;
+    border-radius: 4px;
+    flex:1;
+    padding: 16px;
+    text-align: center;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.upgrade-card img {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 8px;
+    object-fit: contain;
+}
+.upgrade-card h4 { margin: 8px 0; font-size: 1rem; }
+
+.upgrade-desc { font-size: 0.7rem; margin: 8px 0; flex-grow: 1; }
+
+.buy-upgrade-btn.active {
+    display: block;
+    background: #ffaa44;
+    border: none;
+    padding: 6px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+.buy-upgrade-btn
+{
+    display: none;
+}
+.price { font-size: 0.8rem; margin-top: 6px; color: #aa6a1a; }
+
+
+.task-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+.task-item {
+    background: #4a2a10;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: 1px solid #aa7a4a;
+}
+.task-info h4 { font-size: 1rem; margin-bottom: 4px; }
+.task-difficulty { font-size: 0.7rem; }
+.easy { color: #aaffaa; }
+.medium { color: #ffcc66; }
+.hard { color: #ff8866; }
+.task-reward { font-size: 0.8rem; color: #ffffaa; }
+.task-do-btn {
+    background: #8b5a2c;
+    border: none;
+    color: white;
+    padding: 6px 16px;
+    cursor: pointer;
+    border-radius: 0;
+}
+.task-do-btn:disabled { background: #5b3e1e; cursor: not-allowed; }
+
+/* Окно выполнения */
+.execution-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.1s;
+}
+.execution-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+.execution-window {
+    background: #2c1a0a;
+    width: 400px;
+    padding: 30px;
+    text-align: center;
+    border: 2px solid #ffaa44;
+    display: block;
+}
+.execution-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    transform: rotate(-90deg);
+}
+.execution-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.execution-progress {
+    margin-top: 20px;
+    height: 20px;
+    background: #3a2a1a;
+    overflow: hidden;
+}
+.execution-fill {
+    width: 0%;
+    height: 100%;
+    background: #ffaa44;
+    transition: width 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.execution-text {
+    margin-top: 15px;
+    color: white;
+    font-family: monospace;
+}
+#execution-btn
+{
+    font-family: monospace;
+    margin-top: 10px;
+    width: 30%;
+    background-color: #ffaa44;
+    height: 20px;
+    border-radius: 5px;
+    border-color: #d58627;
+    color: white;
+    font-size: 60%;
+}
+
+.insure-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.insure-section h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.insure-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.insure-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.insure-item:last-child {
+    border-bottom: none;
+}
+
+.insure-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    user-select: none;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 8px;
+    height: 12px;
+    border: solid #000000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s;
+}
+
+input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: #000000;
+}
+
+input[type="checkbox"]:checked + .checkbox-custom::after {
+    transform: rotate(45deg) scale(1);
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.insure-price {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+}
+
+.insure-buy-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.insure-buy-btn:hover {
+    background-color: #e8942a;
+}
+
+.street-area {
+    display: none;
+    width: 1300px;
+    max-width: 95vw;
+    height: 85vh;
+    background: #2c6e6e;
+    border: 2px solid #88aacc;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-family: monospace;
+}
+.street-area.show { display: flex; }
+.street-message { background: #000000aa; padding: 30px; border: 2px solid white; }
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+#newslabelBox
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: static;
+}
+
+#newslabelText
+{
+    font-family: monospace;
+    font-size: 2rem;
+}
+
+#newsContainer
+{
+    display: flex;
+    align-items: start;
+    padding-top: 10px;
+    display: flex;
+    width: 100%;
+    height:300px;
+    gap:5px;
+}
+
+.news
+{
+    border: 1px, solid, black;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: monospace;
+    height: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid grey;
+}
+
+#news1
+{
+    flex:1;
+}
+
+#news2
+{
+    flex:1;
+}
+
+#news3
+{
+    flex:1;
+}
